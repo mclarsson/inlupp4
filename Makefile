@@ -1,8 +1,8 @@
 all:
 	javac *.java
 
-parser: all
-	java ParserDriver
-
 clean:
 	rm -f *.class
+
+calc: all
+	java Calculator

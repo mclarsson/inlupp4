@@ -8,6 +8,20 @@ class Parser{
         st = new StreamTokenizer(System.in);
         st.ordinaryChar('-');
         st.eolIsSignificant(true);
+
+	System.out.println("\nNew Parser");
+	Variable x = new Variable("x");
+	Sin si = new Sin(x);
+	Cos co = new Cos(si);
+	Exp e = new Exp(co);
+	Negative n = new Negative(e);
+	Constant y = new Constant(42.0);
+	Addition a = new Addition(n, y);
+	Multiplication m = new Multiplication(x, a);
+	Subtraction s = new Subtraction(y, m);
+	Division d = new Division(m, s);
+
+	System.out.println(d);
     }
 
     public double expression() throws IOException{

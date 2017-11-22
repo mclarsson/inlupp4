@@ -1,9 +1,9 @@
 
-import java.util.Map;
+import java.util.HashMap;
 
 public abstract class Sexpr {
-    private String name;
-    private int priority;
+    protected String name;
+    protected int priority;
 
     /**
      * Return name of Sexpr.
@@ -26,5 +26,5 @@ public abstract class Sexpr {
      *
      * @return Result
      */
-    //public abstract Sexpr eval();
+    public abstract Sexpr eval(HashMap<String, Sexpr> variables);
 }
