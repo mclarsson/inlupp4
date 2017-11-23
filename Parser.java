@@ -7,32 +7,21 @@ class Parser{
     public Parser(){
         st = new StreamTokenizer(System.in);
         st.ordinaryChar('-');
+	st.ordinaryChar('/');
         st.eolIsSignificant(true);
-
-	System.out.println("\nNew Parser");
-	Variable x = new Variable("x");
-	Sin si = new Sin(x);
-	Cos co = new Cos(si);
-	Exp e = new Exp(co);
-	Negative n = new Negative(e);
-	Constant y = new Constant(42.0);
-	Addition a = new Addition(n, y);
-	Multiplication m = new Multiplication(x, a);
-	Subtraction s = new Subtraction(y, m);
-	Division d = new Division(m, s);
-
-	System.out.println(d);
     }
 
     public Sexpr expression() throws IOException{
-	System.out.println(" -- expression -- ");
+	System.out.println("expression");
         Sexpr expr = term();
 	st.nextToken();
-        while (st.ttype == '+' || st.ttype == '-'){
+        while (st.ttype == '+' || st.ttype == '-') {
 
 	    if (st.ttype == '+') {
                 expr = new Addition(expr, term());
-            }
+            } else {
+		expr = new Subtraction(expr, term());
+	    }
 
 	    st.nextToken();
         }
@@ -41,19 +30,28 @@ class Parser{
     }
 
     private Sexpr term() throws IOException{
-	System.out.println(" -- term -- ");
-        Sexpr prod = factor();
-        while (st.nextToken() == '*'){
-            prod = new Multiplication(prod, factor());
+	System.out.println("term");
+        Sexpr term = factor();
+
+        while (st.nextToken() == '*') {
+	    term = new Multiplication(term, factor());
+	}
+
+	st.pushBack();
+
+	while (st.nextToken() == '/') {
+	    System.out.println("div");
+	    term = new Division(term, factor());
         }
 
-        st.pushBack();
-        return prod;
+	st.pushBack();
+
+        return term;
     }
 
     private Sexpr factor() throws IOException{
+	System.out.println("factor");
         Sexpr result;
-	System.out.println(" -- factor -- ");
         if (st.nextToken() != '(') {
             st.pushBack();
             result = atom();
@@ -70,13 +68,13 @@ class Parser{
     }
 
     private Sexpr atom() throws IOException {
-	System.out.println(" -- atom -- ");
+	System.out.println("atom");
+	System.out.println(st.nval);
 	st.nextToken();
         if (st.ttype == st.TT_NUMBER) {
-	    System.out.println(" -- constant " + st.nval + " -- ");
+	    System.out.println(st.nval);
 	    return new Constant(st.nval);
         } else {
-	    System.out.println(" -- variable " + st.sval + " -- ");
 	    return new Variable(st.sval);
 	}
     }
