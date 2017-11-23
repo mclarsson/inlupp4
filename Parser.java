@@ -26,6 +26,8 @@ class Parser{
 	    st.nextToken();
         }
 
+	st.pushBack();
+
         return expr;
     }
 
@@ -52,16 +54,16 @@ class Parser{
     private Sexpr factor() throws IOException{
 	System.out.println("factor");
         Sexpr result;
-        if (st.nextToken() != '(') {
+        if (st.nextToken() != '(' && st.ttype != st.TT_WORD) {
             st.pushBack();
             result = atom();
         } else if (st.ttype == st.TT_WORD) {
-
+	    System.out.println(" -- UNARY");
 	    System.out.println(st.sval);
 	    result = new Sin(expression());
 
 	} else {
-
+	    System.out.println(" -- PARENT");
             result = expression();
 
             if (st.nextToken() != ')') {
