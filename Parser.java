@@ -24,49 +24,61 @@ class Parser{
 	System.out.println(d);
     }
 
-    public double expression() throws IOException{
-        double sum = term();
-        st.nextToken();
+    public Sexpr expression() throws IOException{
+	System.out.println(" -- expression -- ");
+        Sexpr expr = term();
+	st.nextToken();
         while (st.ttype == '+' || st.ttype == '-'){
-            if(st.ttype == '+'){
-                sum += term();
-            }else{
-                sum -= term();
+
+	    if (st.ttype == '+') {
+                expr = new Addition(expr, term());
             }
-            st.nextToken();
+
+	    st.nextToken();
         }
-        st.pushBack();
-        return sum;
+
+        return expr;
     }
 
-    private double term() throws IOException{
-        double prod = factor();
+    private Sexpr term() throws IOException{
+	System.out.println(" -- term -- ");
+        Sexpr prod = factor();
         while (st.nextToken() == '*'){
-            prod *= factor();
+            prod = new Multiplication(prod, factor());
         }
+
         st.pushBack();
         return prod;
     }
 
-    private double factor() throws IOException{
-        double result;
-        if(st.nextToken() != '('){
+    private Sexpr factor() throws IOException{
+        Sexpr result;
+	System.out.println(" -- factor -- ");
+        if (st.nextToken() != '(') {
             st.pushBack();
-            result = number();
-        }else{
+            result = atom();
+        } else {
+
             result = expression();
-            if(st.nextToken() != ')'){
+
+            if (st.nextToken() != ')') {
                 throw new SyntaxErrorException("expected ')'");
             }
         }
+
         return result;
     }
 
-    private double number() throws IOException{
-        if(st.nextToken() != st.TT_NUMBER){
-            throw new SyntaxErrorException("Expected number");
-        }
-        return st.nval;
+    private Sexpr atom() throws IOException {
+	System.out.println(" -- atom -- ");
+	st.nextToken();
+        if (st.ttype == st.TT_NUMBER) {
+	    System.out.println(" -- constant " + st.nval + " -- ");
+	    return new Constant(st.nval);
+        } else {
+	    System.out.println(" -- variable " + st.sval + " -- ");
+	    return new Variable(st.sval);
+	}
     }
 }
 
