@@ -55,7 +55,12 @@ class Parser{
         if (st.nextToken() != '(') {
             st.pushBack();
             result = atom();
-        } else {
+        } else if (st.ttype == st.TT_WORD) {
+
+	    System.out.println(st.sval);
+	    result = new Sin(expression());
+
+	} else {
 
             result = expression();
 
@@ -69,10 +74,8 @@ class Parser{
 
     private Sexpr atom() throws IOException {
 	System.out.println("atom");
-	System.out.println(st.nval);
 	st.nextToken();
         if (st.ttype == st.TT_NUMBER) {
-	    System.out.println(st.nval);
 	    return new Constant(st.nval);
         } else {
 	    return new Variable(st.sval);
