@@ -12,7 +12,7 @@ class Parser{
     }
 
     public Sexpr expression() throws IOException{
-	System.out.println("expression");
+	System.out.println(" -- expression");
         Sexpr expr = term();
 	st.nextToken();
         while (st.ttype == '+' || st.ttype == '-') {
@@ -31,8 +31,8 @@ class Parser{
         return expr;
     }
 
-    private Sexpr term() throws IOException{
-	System.out.println("term");
+    private Sexpr term() throws IOException {
+	System.out.println(" -- term");
         Sexpr term = factor();
 
         while (st.nextToken() == '*') {
@@ -42,7 +42,6 @@ class Parser{
 	st.pushBack();
 
 	while (st.nextToken() == '/') {
-	    System.out.println("div");
 	    term = new Division(term, factor());
         }
 
@@ -52,18 +51,41 @@ class Parser{
     }
 
     private Sexpr factor() throws IOException{
-	System.out.println("factor");
+	System.out.println(" -- factor");
         Sexpr result;
-        if (st.nextToken() != '(' && st.ttype != st.TT_WORD) {
+
+	if (st.nextToken() != '(' && st.ttype != st.TT_WORD) {
+
             st.pushBack();
             result = atom();
         } else if (st.ttype == st.TT_WORD) {
-	    System.out.println(" -- UNARY");
-	    System.out.println(st.sval);
-	    result = new Sin(expression());
+	    System.out.println(" ---- " + st.sval);
 
+	    switch (st.sval) {
+	    case "sin":
+		st.nextToken();
+		result = new Sin(expression());
+		break;
+	    case "cos":
+		st.nextToken();
+		result = new Cos(expression());
+		break;
+	    case "log":
+		st.nextToken();
+		result = new Log(expression());
+		break;
+	    case "exp":
+		st.nextToken();
+		result = new Exp(expression());
+		break;
+	    default:
+		throw new SyntaxErrorException("not a valid operation");
+	    }
+
+	    if (st.nextToken() != ')') {
+                throw new SyntaxErrorException("expected ')'");
+            }
 	} else {
-	    System.out.println(" -- PARENT");
             result = expression();
 
             if (st.nextToken() != ')') {
@@ -75,11 +97,13 @@ class Parser{
     }
 
     private Sexpr atom() throws IOException {
-	System.out.println("atom");
+	System.out.println(" -- atom");
 	st.nextToken();
         if (st.ttype == st.TT_NUMBER) {
+	    System.out.println(" ---- c " + st.nval);
 	    return new Constant(st.nval);
         } else {
+	    System.out.println(" ---- v " + st.sval);
 	    return new Variable(st.sval);
 	}
     }
