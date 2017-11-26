@@ -16,6 +16,7 @@ public class Calculator {
 	    } catch (SyntaxErrorException e) {
 		System.out.print("Syntax Error: ");
 		System.out.println(e.getMessage());
+		return;
 	    } catch (IOException e) {
 		System.err.println("IO Exception!");
 	    }

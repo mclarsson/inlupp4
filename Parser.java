@@ -4,6 +4,8 @@ import java.io.IOException;
 class Parser{
     StreamTokenizer st;
 
+    Boolean debug = false;
+
     public Parser(){
         st = new StreamTokenizer(System.in);
         st.ordinaryChar('-');
@@ -12,9 +14,11 @@ class Parser{
     }
 
     public Sexpr expression() throws IOException{
-	System.out.println(" -- expression");
-        Sexpr expr = term();
+	if (debug) System.out.println(" -- expression");
+
+	Sexpr expr = term();
 	st.nextToken();
+
         while (st.ttype == '+' || st.ttype == '-') {
 
 	    if (st.ttype == '+') {
@@ -26,14 +30,15 @@ class Parser{
 	    st.nextToken();
         }
 
-	st.pushBack();
+	//st.pushBack();
 
         return expr;
     }
 
     private Sexpr term() throws IOException {
-	System.out.println(" -- term");
-        Sexpr term = factor();
+	if (debug) System.out.println(" -- term");
+
+	Sexpr term = factor();
 
         while (st.nextToken() == '*') {
 	    term = new Multiplication(term, factor());
@@ -51,59 +56,73 @@ class Parser{
     }
 
     private Sexpr factor() throws IOException{
-	System.out.println(" -- factor");
-        Sexpr result;
+	if (debug) System.out.println(" -- factor");
 
-	if (st.nextToken() != '(' && st.ttype != st.TT_WORD) {
+	if (st.nextToken() == '(') {
 
-            st.pushBack();
-            result = atom();
-        } else if (st.ttype == st.TT_WORD) {
-	    System.out.println(" ---- " + st.sval);
+	    Sexpr expression = expression();
+
+            if (st.ttype != ')') {
+                throw new SyntaxErrorException("expected ')' after parenthesis");
+            }
+
+	    return expression;
+
+	} else if (st.ttype == st.TT_WORD) {
+
+	    Sexpr unary;
 
 	    switch (st.sval) {
 	    case "sin":
 		st.nextToken();
-		result = new Sin(expression());
+		unary = new Sin(expression());
 		break;
+
 	    case "cos":
 		st.nextToken();
-		result = new Cos(expression());
+		unary = new Cos(expression());
 		break;
+
 	    case "log":
 		st.nextToken();
-		result = new Log(expression());
+		unary = new Log(expression());
 		break;
+
 	    case "exp":
 		st.nextToken();
-		result = new Exp(expression());
+		unary = new Exp(expression());
 		break;
+
 	    default:
-		throw new SyntaxErrorException("not a valid operation");
+		// Get variable
+		st.pushBack();
+		return atom();
 	    }
 
-	    if (st.nextToken() != ')') {
-                throw new SyntaxErrorException("expected ')'");
-            }
+	    if (st.ttype != ')') {
+		throw new SyntaxErrorException("expected ')' after operation");
+	    } else {
+		return unary;
+	    }
+
 	} else {
-            result = expression();
-
-            if (st.nextToken() != ')') {
-                throw new SyntaxErrorException("expected ')'");
-            }
-        }
-
-        return result;
+	    // Get constant
+	    st.pushBack();
+	    return atom();
+	}
     }
 
     private Sexpr atom() throws IOException {
-	System.out.println(" -- atom");
+	if (debug) System.out.println(" -- atom");
+
 	st.nextToken();
         if (st.ttype == st.TT_NUMBER) {
-	    System.out.println(" ---- c " + st.nval);
+	    if (debug) System.out.println(" ---- c " + st.nval);
+
 	    return new Constant(st.nval);
         } else {
-	    System.out.println(" ---- v " + st.sval);
+	    if (debug) System.out.println(" ---- v " + st.sval);
+
 	    return new Variable(st.sval);
 	}
     }
