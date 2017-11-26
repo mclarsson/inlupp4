@@ -1,9 +1,9 @@
 
 import java.util.HashMap;
 
-public class Negative extends Unary {
+public class Negation extends Unary {
 
-    public Negative(Sexpr argument) {
+    public Negation(Sexpr argument) {
 	super(argument);
     }
 

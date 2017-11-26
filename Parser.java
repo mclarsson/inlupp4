@@ -4,7 +4,7 @@ import java.io.IOException;
 class Parser{
     StreamTokenizer st;
 
-    Boolean debug = false;
+    Boolean debug = true;
 
     public Parser(){
         st = new StreamTokenizer(System.in);
@@ -56,6 +56,7 @@ class Parser{
     }
 
     private Sexpr factor() throws IOException{
+
 	if (debug) System.out.println(" -- factor");
 
 	if (st.nextToken() == '(') {
@@ -67,6 +68,12 @@ class Parser{
             }
 
 	    return expression;
+
+	} else if (st.ttype == '-') {
+
+	    Sexpr neg = new Negation(term());
+	    st.pushBack();
+	    return neg;
 
 	} else if (st.ttype == st.TT_WORD) {
 
