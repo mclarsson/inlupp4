@@ -1,27 +1,42 @@
 import java.io.StreamTokenizer;
 import java.io.IOException;
+import java.io.FileReader;
+import java.io.Reader;
 
 class Parser{
     StreamTokenizer st;
 
-    Boolean debug = true;
+    Boolean debug = false;
 
     public Parser(){
         st = new StreamTokenizer(System.in);
         st.ordinaryChar('-');
 	st.ordinaryChar('/');
+	st.ordinaryChar('=');
         st.eolIsSignificant(true);
     }
 
-    public Sexpr expression() throws IOException{
+    public Parser(String filename) throws IOException {
+	Reader r = new FileReader(filename);
+	st = new StreamTokenizer(r);
+        st.ordinaryChar('-');
+	st.ordinaryChar('/');
+	st.ordinaryChar('=');
+        st.eolIsSignificant(true);
+    }
+
+    public Sexpr expression() throws IOException {
 	if (debug) System.out.println(" -- expression");
 
 	Sexpr expr = term();
 	st.nextToken();
 
-        while (st.ttype == '+' || st.ttype == '-') {
+        while (st.ttype == '+' || st.ttype == '-' || st.ttype == '=') {
 
-	    if (st.ttype == '+') {
+	    if (st.ttype == '=') {
+                expr = new Assignment(expr, expression());
+		st.pushBack();
+            } else if (st.ttype == '+') {
                 expr = new Addition(expr, term());
             } else {
 		expr = new Subtraction(expr, term());

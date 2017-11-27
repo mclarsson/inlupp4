@@ -2,6 +2,7 @@
 public abstract class Binary extends Sexpr {
     protected Sexpr left;
     protected Sexpr right;
+    protected String operation;
 
     /**
      * Constructor.
@@ -9,8 +10,14 @@ public abstract class Binary extends Sexpr {
      * @param left Left side of expression
      * @param right Right side of expression
      */
-    public Binary(Sexpr left, Sexpr right) {
+    public Binary(Sexpr left, Sexpr right, String op) {
 	this.left = left;
 	this.right = right;
+	this.operation = op;
+
+    }
+
+    public String toString() {
+	return "(" + left + " " + this.operation +  " " + right + ")";
     }
 }
