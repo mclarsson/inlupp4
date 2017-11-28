@@ -7,7 +7,10 @@ class Parser{
     StreamTokenizer st;
 
     Boolean debug = false;
-
+    /**
+     * Constructor.
+     *
+     */
     public Parser(){
         st = new StreamTokenizer(System.in);
         st.ordinaryChar('-');
@@ -16,6 +19,12 @@ class Parser{
         st.eolIsSignificant(true);
     }
 
+    /**
+     * Constructor.
+     *
+     * @param filename File with test inputs.
+     * @throws IOException If input/output error occurred.
+     */
     public Parser(String filename) throws IOException {
 	Reader r = new FileReader(filename);
 	st = new StreamTokenizer(r);
@@ -24,7 +33,13 @@ class Parser{
 	st.ordinaryChar('=');
         st.eolIsSignificant(true);
     }
-
+    
+    /**
+     * Checks whether the expression has "+", "-" or "=" in it and creates new operation accordingly. 
+     * 
+     * @throws IOException if input/output error occurs.
+     * @return Expression.
+     */
     public Sexpr expression() throws IOException {
 	if (debug) System.out.println(" -- expression");
 
@@ -50,6 +65,12 @@ class Parser{
         return expr;
     }
 
+    /**
+     * Checks if the term has "*" or "/" in it and creates a new operation accordingly. 
+     *
+     * @throws IOException if input/output error occurs.
+     * @return Term back to Expression.
+     */
     private Sexpr term() throws IOException {
 	if (debug) System.out.println(" -- term");
 
@@ -69,7 +90,13 @@ class Parser{
 
         return term;
     }
-
+    
+    /**
+     * Checks everything inside the parentheses for unary operations. If found, creates a new one. 
+     *
+     * @throws IOException if input/output error occurs.
+     * @return Expression, atom(Constant or Variable) or a Unary operation depending on input. 
+     */
     private Sexpr factor() throws IOException{
 
 	if (debug) System.out.println(" -- factor");
@@ -83,8 +110,9 @@ class Parser{
             }
 
 	    return expression;
+        }
 
-	} else if (st.ttype == '-') {
+        else if (st.ttype == '-') {
 
 	    Sexpr neg = new Negation(term());
 	    st.pushBack();
@@ -134,6 +162,12 @@ class Parser{
 	}
     }
 
+    /**
+     * Checks if the input is a Variable or a Constant. 
+     *
+     * @throws IOException if input/output error occurs.
+     * @return Constant or Variable depending on what the inpus was. 
+     */
     private Sexpr atom() throws IOException {
 	if (debug) System.out.println(" -- atom");
 
@@ -151,9 +185,20 @@ class Parser{
 }
 
 class SyntaxErrorException extends RuntimeException{
+
+    /**
+     * Constructor. 
+     *
+     */
     public SyntaxErrorException(){
         super();
     }
+
+    /**
+     * Constructor. 
+     *
+     * @param msg The message to be displayed when error occurs. 
+     */
     public SyntaxErrorException(String msg){
         super(msg);
     }
