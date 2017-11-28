@@ -29,13 +29,4 @@ public class Sin extends Unary {
     public Sexpr eval(HashMap<String, Sexpr> variables) {
 	return this;
     }
-
-    /**
-     * Concatenates argument with "Sin". 
-     *
-     * @return String with Sin(argument).
-     */
-    public String toString() {
-	return "Sin(" + argument  + ")";
-    }
 }

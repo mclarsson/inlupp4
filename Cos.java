@@ -11,7 +11,7 @@ public class Cos extends Unary {
     public Cos(Sexpr argument) {
 	super(argument);
     }
-    
+
     /**
      * Returns name of operation.
      *
@@ -28,14 +28,5 @@ public class Cos extends Unary {
      */
     public Sexpr eval(HashMap<String, Sexpr> variables) {
 	return this;
-    }
-    
-    /**
-     * Concatenates argument with "cos". 
-     *
-     * @return String with cos(argument).
-     */
-    public String toString() {
-	return "Cos(" + argument  + ")";
     }
 }

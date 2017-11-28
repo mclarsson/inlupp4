@@ -24,9 +24,18 @@ public class Constant extends Sexpr {
     }
 
     /**
+     * Determine if this expression is a constant.
+     *
+     * @return True, this class is a constant.
+     */
+    public Boolean isConstant() {
+	return true;
+    }
+
+    /**
      * Returns value of constant.
      *
-     * @return Value. 
+     * @return Value.
      */
     public double getValue() {
 	return value;
@@ -43,7 +52,7 @@ public class Constant extends Sexpr {
     /**
      * Converts constant to string.
      *
-     * @return value to string. 
+     * @return value to string.
      */
     public String toString() {
 	return Double.toString(value);

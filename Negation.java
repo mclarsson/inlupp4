@@ -29,13 +29,4 @@ public class Negation extends Unary {
     public Sexpr eval(HashMap<String, Sexpr> variables) {
 	return this;
     }
-
-    /**
-     * Concatenates argument with "-". 
-     *
-     * @return String with -(argument).
-     */
-    public String toString() {
-	return "-(" + argument  + ")";
-    }
 }

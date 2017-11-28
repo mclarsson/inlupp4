@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 public class Assignment extends Binary {
 
-    
+
     /**
      * Constructor.
      *
@@ -11,13 +11,13 @@ public class Assignment extends Binary {
      * @param right Right side of Assignment.
      */
     public Assignment(Sexpr left, Sexpr right) {
-	super(left, right, "=");
+	super(left, right);
     }
 
     /**
      * Return name of operation.
      *
-     * @return Operation. 
+     * @return Operation.
      */
     public String getName() {
 	return "=";

@@ -30,13 +30,4 @@ public class Log extends Unary {
     public Sexpr eval(HashMap<String, Sexpr> variables) {
 	return this;
     }
-
-    /**
-     * Concatenates argument with "Log". 
-     *
-     * @return String with Log(argument).
-     */
-    public String toString() {
-	return "Log(" + argument  + ")";
-    }
 }

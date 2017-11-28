@@ -10,20 +10,33 @@ public abstract class Binary extends Sexpr {
      * @param left Left side of expression
      * @param right Right side of expression
      */
-    public Binary(Sexpr left, Sexpr right, String op) {
+    public Binary(Sexpr left, Sexpr right) {
 	this.left = left;
 	this.right = right;
-	this.operation = op;
-
-        
     }
 
     /**
      * Concatenates left, right and operation of expression.
      *
-     * @return Expression in string-form. 
+     * @return Expression in string-form.
      */
     public String toString() {
-	return left + " " + this.operation +  " " + right;
+	String s;
+
+	if (left.priority() > 0) {
+	    s = "(" + left + ")";
+	} else {
+	    s = left.toString();
+	}
+
+	s += " " + getName() + " ";
+
+	if (right.priority() > 0) {
+	    s += "(" + right + ")";
+	} else {
+	    s += right.toString();
+	}
+
+	return s;
     }
 }

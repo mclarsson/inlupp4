@@ -3,7 +3,6 @@ import java.util.HashMap;
 
 public abstract class Sexpr {
     protected String name;
-    protected int priority;
 
     /**
      * Return name of Sexpr.
@@ -18,7 +17,16 @@ public abstract class Sexpr {
      * @return Priority
      */
     public int priority() {
-	return priority;
+	return 0;
+    }
+
+    /**
+     * Determine if expression is a constant.
+     *
+     * @return True if is constant, false otherwise
+     */
+    public Boolean isConstant() {
+	return false;
     }
 
     /**

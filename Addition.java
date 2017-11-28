@@ -5,19 +5,19 @@ public class Addition extends Binary {
 
     /**
      * Constructor.
-     * 
-     * @param left  Sexpr left of addition.  
-     * @param right Sexpr right of addition. 
+     *
+     * @param left  Sexpr left of addition.
+     * @param right Sexpr right of addition.
      */
-    
+
     public Addition(Sexpr left, Sexpr right) {
-	super(left, right, "+");
+	super(left, right);
     }
 
     /**
      * Return name of operation.
      *
-     * @return Operation. 
+     * @return Operation.
      */
     public String getName() {
 	return "+";

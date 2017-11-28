@@ -15,7 +15,7 @@ public class Exp extends Unary {
     /**
      * Returns name of operation.
      *
-     * @return Operation name. 
+     * @return Operation name.
      */
     public String getName() {
 	return "Exp";
@@ -28,15 +28,5 @@ public class Exp extends Unary {
      */
     public Sexpr eval(HashMap<String, Sexpr> variables) {
 	return this;
-    }
-
-
-    /**
-     * Concatenates argument with "Exp".
-     *
-     * @return String with cos(argument).
-     */
-    public String toString() {
-	return "Exp(" + argument  + ")";
     }
 }

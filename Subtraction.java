@@ -5,18 +5,18 @@ public class Subtraction extends Binary {
 
     /**
      * Constructor.
-     * 
-     * @param left  Sexpr left of Subtraction.  
-     * @param right Sexpr right of Subtraction. 
+     *
+     * @param left  Sexpr left of Subtraction.
+     * @param right Sexpr right of Subtraction.
      */
     public Subtraction(Sexpr left, Sexpr right) {
-	super(left, right, "-");
+	super(left, right);
     }
 
     /**
      * Return name of operation.
      *
-     * @return Operation. 
+     * @return Operation.
      */
     public String getName() {
 	return "-";
