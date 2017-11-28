@@ -11,6 +11,7 @@ public class Cos extends Unary {
     public Cos(Sexpr argument) {
 	super(argument);
     }
+    
     /**
      * Returns name of operation.
      *
