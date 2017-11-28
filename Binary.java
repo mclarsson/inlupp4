@@ -15,8 +15,14 @@ public abstract class Binary extends Sexpr {
 	this.right = right;
 	this.operation = op;
 
+        
     }
 
+    /**
+     * Concatenates left, right and operation of expression.
+     *
+     * @return Expression in string-form. 
+     */
     public String toString() {
 	return left + " " + this.operation +  " " + right;
     }

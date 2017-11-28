@@ -2,6 +2,11 @@
 import java.io.IOException;
 
 public class Calculator {
+    /**
+     * Main function for the program. Starts the calculator and initializes a new parser. 
+     * Throws exceptions when necessary. 
+     *
+     */
     public static void main(String[] args){
         Parser p = new Parser();
 	Sexpr expr;
