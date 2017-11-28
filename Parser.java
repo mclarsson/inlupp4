@@ -6,7 +6,7 @@ import java.io.Reader;
 class Parser{
     StreamTokenizer st;
 
-    Boolean debug = false;
+    Boolean debug = true;
 
     public Parser(){
         st = new StreamTokenizer(System.in);
@@ -55,15 +55,15 @@ class Parser{
 
 	Sexpr term = factor();
 
-        while (st.nextToken() == '*') {
-	    term = new Multiplication(term, factor());
+	st.nextToken();
+	while (st.ttype == '*' || st.ttype == '/') {
+	    if (st.ttype == '*') {
+		term = new Multiplication(term, factor());
+	    } else {
+		term = new Division(term, factor());
+	    }
+	    st.nextToken();
 	}
-
-	st.pushBack();
-
-	while (st.nextToken() == '/') {
-	    term = new Division(term, factor());
-        }
 
 	st.pushBack();
 

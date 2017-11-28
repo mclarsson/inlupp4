@@ -18,6 +18,6 @@ public abstract class Binary extends Sexpr {
     }
 
     public String toString() {
-	return "(" + left + " " + this.operation +  " " + right + ")";
+	return left + " " + this.operation +  " " + right;
     }
 }
