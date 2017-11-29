@@ -2,7 +2,6 @@
 public abstract class Binary extends Sexpr {
     protected Sexpr left;
     protected Sexpr right;
-    protected String operation;
 
     /**
      * Constructor.
@@ -21,6 +20,9 @@ public abstract class Binary extends Sexpr {
      * @return Expression in string-form.
      */
     public String toString() {
+
+	return "(" + left + " " + getName() + " " + right + ")";
+	/*
 	String s;
 
 	if (left.priority() > 0) {
@@ -37,6 +39,6 @@ public abstract class Binary extends Sexpr {
 	    s += right.toString();
 	}
 
-	return s;
+	return s;*/
     }
 }

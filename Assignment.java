@@ -33,8 +33,8 @@ public class Assignment extends Binary {
      * @return Result
      */
     public Sexpr eval(HashMap<String, Sexpr> variables) {
-	System.out.println("LEFT:  " + left);
-	System.out.println("RIGHT: " + right);
-	return Symbolic.assign(right.eval(variables).getName(), left.eval(variables), variables).eval(variables);
+	String name = right.getName();
+	Sexpr value = left.eval(variables);
+	return Symbolic.assign(name, value, variables);
     }
 }

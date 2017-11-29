@@ -6,7 +6,7 @@ import java.io.Reader;
 class Parser{
     StreamTokenizer st;
 
-    Boolean debug = true;
+    Boolean debug = false;
 
     /**
      * Constructor.
@@ -42,8 +42,8 @@ class Parser{
      * @return Expression.
      */
     public Sexpr expression() throws IOException {
-	if (debug) System.out.println(" -- expression");
 
+	if (debug) System.out.println(" -- expression");
 
 	Sexpr expr = term();
 
@@ -53,13 +53,9 @@ class Parser{
             return expr;
         }
 
+        while (st.ttype == '+' || st.ttype == '-') {
 
-        while (st.ttype == '+' || st.ttype == '-' || st.ttype == '=') {
-
-	    if (st.ttype == '=') {
-                expr = new Assignment(expr, expression());
-		st.pushBack();
-            } else if (st.ttype == '+') {
+	    if (st.ttype == '+') {
                 expr = new Addition(expr, term());
             } else {
 		expr = new Subtraction(expr, term());
@@ -67,6 +63,11 @@ class Parser{
 
 	    st.nextToken();
         }
+
+	while (st.ttype == '=') {
+	    expr = new Assignment(expr, atom());
+	    st.nextToken();
+	}
 
 	//st.pushBack();
 
