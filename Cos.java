@@ -27,6 +27,6 @@ public class Cos extends Unary {
      * @return Result
      */
     public Sexpr eval(HashMap<String, Sexpr> variables) {
-	return this;
+	return Symbolic.cos(argument.eval(variables));
     }
 }

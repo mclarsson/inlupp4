@@ -29,6 +29,14 @@ public abstract class Sexpr {
 	return false;
     }
 
+    public Boolean isQuit() {
+        return false;
+    }
+
+    public Boolean isVars() {
+        return false;
+    }
+
     public double getValue() {
 	return 0;
     }

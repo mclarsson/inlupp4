@@ -28,7 +28,8 @@ public class Variable extends Atom {
      */
     public Sexpr eval(HashMap<String, Sexpr> variables) {
 	if (variables.containsKey(this.getName())) {
-	    return variables.get(this.ident).eval(variables);
+            Sexpr expr = variables.get(this.ident);
+            return expr;
 	} else {
 	    return this;
 	}

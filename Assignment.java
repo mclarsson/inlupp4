@@ -29,6 +29,6 @@ public class Assignment extends Binary {
      * @return Result
      */
     public Sexpr eval(HashMap<String, Sexpr> variables) {
-	return Symbolic.assign(right.getName(), left, variables).eval(variables);
+	return Symbolic.assign(right.eval(variables).getName(), left.eval(variables), variables).eval(variables);
     }
 }

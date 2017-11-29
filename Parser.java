@@ -44,8 +44,15 @@ class Parser{
     public Sexpr expression() throws IOException {
 	if (debug) System.out.println(" -- expression");
 
+        
 	Sexpr expr = term();
-	st.nextToken();
+
+        st.nextToken();
+
+        if (expr.isVars() || expr.isQuit()) {
+            return expr;
+        }
+        
 
         while (st.ttype == '+' || st.ttype == '-' || st.ttype == '=') {
 
@@ -143,6 +150,10 @@ class Parser{
 		st.nextToken();
 		unary = new Exp(expression());
 		break;
+            case "vars":
+                return new Vars();
+            case "q":
+                return new Quit();
 
 	    default:
 		// Get variable
