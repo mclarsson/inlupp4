@@ -27,6 +27,6 @@ public class Sin extends Unary {
      * @return Result
      */
     public Sexpr eval(HashMap<String, Sexpr> variables) {
-	return this;
+	return Symbolic.sin(argument.eval(variables));
     }
 }

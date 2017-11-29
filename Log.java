@@ -28,6 +28,6 @@ public class Log extends Unary {
      * @return Result
      */
     public Sexpr eval(HashMap<String, Sexpr> variables) {
-	return this;
+	return Symbolic.log(argument.eval(variables));
     }
 }

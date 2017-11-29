@@ -20,13 +20,17 @@ public class Variable extends Atom {
     public String getName() {
 	return this.ident;
     }
-    
+
     /**
      * Evaluate current Variable.
      *
      * @return Result
      */
-    public Sexpr eval(HashMap<String, Sexpr> map) {
-	return map.get(this.ident);
+    public Sexpr eval(HashMap<String, Sexpr> variables) {
+	if (variables.containsKey(this.getName())) {
+	    return variables.get(this.ident).eval(variables);
+	} else {
+	    return this;
+	}
     }
 }

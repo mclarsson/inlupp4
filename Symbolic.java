@@ -1,4 +1,6 @@
 
+import java.util.HashMap;
+
 public class Symbolic {
 
     /**
@@ -68,5 +70,50 @@ public class Symbolic {
 	}
 
 	return new Division(denominator, nominator);
+    }
+
+    public static Sexpr assign(String name, Sexpr value, HashMap<String, Sexpr> variables) {
+	variables.put(name, value);
+	return value;
+    }
+
+    public static Sexpr sin(Sexpr arg) {
+	if (arg.isConstant()) {
+	    return new Constant(Math.sin(arg.getValue()));
+	}
+
+	return new Sin(arg);
+    }
+
+    public static Sexpr cos(Sexpr arg) {
+	if (arg.isConstant()) {
+	    return new Constant(Math.cos(arg.getValue()));
+	}
+
+	return new Cos(arg);
+    }
+
+    public static Sexpr exp(Sexpr arg) {
+	if (arg.isConstant()) {
+	    return new Constant(Math.pow(Math.E, arg.getValue()));
+	}
+
+	return new Exp(arg);
+    }
+
+    public static Sexpr log(Sexpr arg) {
+	if (arg.isConstant()) {
+	    return new Constant(Math.log10(arg.getValue()));
+	}
+
+	return new Log(arg);
+    }
+
+    public static Sexpr negate(Sexpr arg) {
+	if (arg.isConstant()) {
+	    return new Constant(-1 * arg.getValue());
+	}
+
+	return new Negation(arg);
     }
 }

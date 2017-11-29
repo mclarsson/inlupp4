@@ -27,6 +27,6 @@ public class Negation extends Unary {
      * @return Result
      */
     public Sexpr eval(HashMap<String, Sexpr> variables) {
-	return this;
+	return Symbolic.negate(argument.eval(variables));
     }
 }
