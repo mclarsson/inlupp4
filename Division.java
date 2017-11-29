@@ -32,6 +32,10 @@ public class Division extends Binary {
      * @return Result
      */
     public Sexpr eval(HashMap<String, Sexpr> variables) {
-	return this;
+	try {
+	    return Symbolic.divide(left.eval(variables), right.eval(variables));
+	} catch (IllegalArgumentException e) {
+	    return this;
+	}
     }
 }

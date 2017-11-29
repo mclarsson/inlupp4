@@ -32,6 +32,6 @@ public class Multiplication extends Binary {
      * @return Result
      */
     public Sexpr eval(HashMap<String, Sexpr> variables) {
-	return this;
+	return Symbolic.multiply(left.eval(variables), right.eval(variables));
     }
 }

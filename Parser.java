@@ -6,7 +6,7 @@ import java.io.Reader;
 class Parser{
     StreamTokenizer st;
 
-    Boolean debug = true;
+    Boolean debug = false;
 
     /**
      * Constructor.

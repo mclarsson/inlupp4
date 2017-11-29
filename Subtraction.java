@@ -28,6 +28,6 @@ public class Subtraction extends Binary {
      * @return Result
      */
     public Sexpr eval(HashMap<String, Sexpr> variables) {
-	return this;
+	return Symbolic.subtract(left.eval(variables), right.eval(variables));
     }
 }

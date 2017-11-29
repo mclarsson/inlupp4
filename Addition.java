@@ -29,6 +29,6 @@ public class Addition extends Binary {
      * @return Result
      */
     public Sexpr eval(HashMap<String, Sexpr> variables) {
-	return this;
+	return Symbolic.add(left.eval(variables), right.eval(variables));
     }
 }

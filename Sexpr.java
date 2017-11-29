@@ -29,6 +29,10 @@ public abstract class Sexpr {
 	return false;
     }
 
+    public double getValue() {
+	return 0;
+    }
+
     /**
      * Evaluate current expression.
      *
