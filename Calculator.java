@@ -26,12 +26,12 @@ public class Calculator {
                     for (String key : variables.keySet()) {
                         System.out.println(key + " = " + variables.get(key));
                     }
-            
-                    
+
+
                 } else if (expr.isQuit()){
                     return;
                 } else {
-		System.out.println("result: " + expr.eval(variables));
+		    System.out.println("result: " + expr.eval(variables));
                 }
 	    } catch (SyntaxErrorException e) {
 		System.out.print("Syntax Error: ");

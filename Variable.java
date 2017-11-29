@@ -29,7 +29,7 @@ public class Variable extends Atom {
     public Sexpr eval(HashMap<String, Sexpr> variables) {
 	if (variables.containsKey(this.getName())) {
             Sexpr expr = variables.get(this.ident);
-            return expr;
+            return expr.eval(variables);
 	} else {
 	    return this;
 	}

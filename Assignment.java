@@ -23,12 +23,18 @@ public class Assignment extends Binary {
 	return "=";
     }
 
+    public int priority() {
+	return 1;
+    }
+
     /**
      * Evaluate current Assignment.
      *
      * @return Result
      */
     public Sexpr eval(HashMap<String, Sexpr> variables) {
+	System.out.println("LEFT:  " + left);
+	System.out.println("RIGHT: " + right);
 	return Symbolic.assign(right.eval(variables).getName(), left.eval(variables), variables).eval(variables);
     }
 }
