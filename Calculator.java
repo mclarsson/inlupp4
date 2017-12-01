@@ -23,7 +23,7 @@ public class Calculator {
 	    System.out.println("Please enter an expression: ");
 	    try {
 		expr = p.expression();
-
+                
                 if (expr.isVars()) {
                     for (String key : variables.keySet()) {
                         System.out.println(key + " = " + variables.get(key));
@@ -33,6 +33,7 @@ public class Calculator {
                 } else {
 		    System.out.println("input: " + expr);
 		    System.out.println("result: " + expr.eval(variables));
+                    variables.put("ans", expr.eval(variables));
                 }
 
 	    } catch (SyntaxErrorException e) {

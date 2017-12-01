@@ -136,7 +136,7 @@ class Parser{
 		st.nextToken();
 		unary = new Sin(expression());
 		break;
-
+                
 	    case "cos":
 		st.nextToken();
 		unary = new Cos(expression());
@@ -187,7 +187,7 @@ class Parser{
 	st.nextToken();
         if (st.ttype == st.TT_NUMBER) {
 	    if (debug) System.out.println(" ---- c " + st.nval);
-
+            
 	    return new Constant(st.nval);
         } else {
 	    if (debug) System.out.println(" ---- v " + st.sval);

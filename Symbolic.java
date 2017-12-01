@@ -73,7 +73,7 @@ public class Symbolic {
     }
 
     public static Sexpr assign(String name, Sexpr value, HashMap<String, Sexpr> variables) {
-	variables.put(name, value);
+        variables.put(name, value);
 	return value;
     }
 
