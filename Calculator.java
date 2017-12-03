@@ -20,10 +20,11 @@ public class Calculator {
 	System.out.println("Enter \"q\" to exit at any point.");
 
 	while (true) {
-	    System.out.println("Please enter an expression: ");
+	    System.out.print("\n? ");
+
 	    try {
 		expr = p.expression();
-                
+
                 if (expr.isVars()) {
                     for (String key : variables.keySet()) {
                         System.out.println(key + " = " + variables.get(key));
@@ -37,9 +38,11 @@ public class Calculator {
                 }
 
 	    } catch (SyntaxErrorException e) {
+		p.flush();
 		System.out.print("Syntax Error: ");
 		System.out.println(e.getMessage());
 	    } catch (IOException e) {
+		p.flush();
 		System.err.println("IO Exception!");
 	    }
 	}

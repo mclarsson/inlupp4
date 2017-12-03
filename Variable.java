@@ -21,6 +21,10 @@ public class Variable extends Atom {
 	return this.ident;
     }
 
+    public Boolean isVariable() {
+	return true;
+    }
+
     /**
      * Evaluate current Variable.
      *
