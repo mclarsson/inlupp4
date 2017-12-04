@@ -9,7 +9,7 @@ import java.io.InputStream;
 class Parser{
     StreamTokenizer st;
 
-    Boolean debug = false;
+    Boolean debug = true;
 
     private String quit;
     private String vars;
@@ -105,7 +105,7 @@ class Parser{
 	    st.nextToken();
 	}
 
-	if (st.ttype == st.TT_EOL || st.ttype == ')') {
+	if (st.ttype == st.TT_EOL || st.ttype == st.TT_EOF || st.ttype == ')') {
 	    valid = true;
 	}
 
