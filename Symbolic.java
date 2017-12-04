@@ -62,10 +62,6 @@ public class Symbolic {
     public static Sexpr divide(Sexpr denominator, Sexpr nominator) throws IllegalArgumentException {
 
 	if (denominator.isConstant() && nominator.isConstant()) {
-	    if (nominator.getValue() == 0) {
-		throw new IllegalArgumentException("Can't divide by 0");
-	    }
-
 	    return new Constant(denominator.getValue() / nominator.getValue());
 	}
 
