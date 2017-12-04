@@ -1,5 +1,8 @@
+SOURCES = *.java
+
+
 all:
-	javac  -cp hamcrest-core-1.3.jar:junit-4.12.jar:. *.java
+	javac  -cp hamcrest-core-1.3.jar:junit-4.12.jar:. $(SOURCES)
 
 clean:
 	rm -f *.class

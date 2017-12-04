@@ -9,7 +9,7 @@ import java.io.InputStream;
 class Parser{
     StreamTokenizer st;
 
-    Boolean debug = true;
+    Boolean debug = false;
 
     private String quit;
     private String vars;
