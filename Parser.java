@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.sql.SQLSyntaxErrorException;
+import java.io.InputStream;
 
 class Parser{
     StreamTokenizer st;
@@ -19,8 +20,8 @@ class Parser{
      * Constructor.
      *
      */
-    public Parser(String quit, String vars){
-        st = new StreamTokenizer(System.in);
+    public Parser(String quit, String vars, InputStream in){
+        st = new StreamTokenizer(in);
         st.ordinaryChar('-');
 	st.ordinaryChar('/');
 	st.ordinaryChar('=');
@@ -33,8 +34,12 @@ class Parser{
 	this.reserved_words.add(this.vars);
     }
 
+    public Parser(InputStream in) {
+	this("q", "vars", in);
+    }
+
     public Parser() {
-	this("q", "vars");
+	this(System.in);
     }
 
     /**
