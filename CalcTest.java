@@ -52,5 +52,20 @@ public class CalcTest {
 	assertEquals(eval("1 + 2"), 3.0, 0);
 	assertEquals(eval("2 + 1"), 3.0, 0);
 	assertEquals(eval("0 + 0"), 0.0, 0);
+        assertEquals(eval("1 + 1"), 2.0, 0);
+    }
+    @Test
+    public void SubtractionTest() {
+        assertEquals(eval("1 - 4"), (-3.0), 0);
+        assertEquals(eval("1 -- 1"), 2.0, 0);
+        assertEquals(eval("-1 - 2"), (-3.0), 0);
+        assertEquals(eval("-1 --2"), 1.0, 0);
+    }
+    @Test
+    public void MultiplicationTest() {
+        System.out.println(eval("1 * 2"));
+        assertEquals(eval("1 * 2"), 2.0, 0);
+        assertEquals(eval("1 * 0"), 0.0, 0);
+        assertEquals(eval("-4 * 10"), (-40.0), 0);
     }
 }
